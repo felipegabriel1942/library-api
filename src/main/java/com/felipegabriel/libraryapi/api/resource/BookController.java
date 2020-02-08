@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.felipegabriel.libraryapi.api.dto.BookDTO;
 import com.felipegabriel.libraryapi.api.exception.ApiErros;
+import com.felipegabriel.libraryapi.api.exception.BusinessException;
 import com.felipegabriel.libraryapi.api.model.entity.Book;
 import com.felipegabriel.libraryapi.api.service.BookService;
 
@@ -38,11 +39,17 @@ public class BookController {
 		return modelMapper.map(entity, BookDTO.class);
 	}
 	
-	// Metodo para tratar errors
+	// Metodos para tratar errors
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	public ApiErros handleValidationExceptions(MethodArgumentNotValidException exception) {
 		BindingResult bindingResult = exception.getBindingResult();
 		return new ApiErros(bindingResult);
+	}
+	
+	@ExceptionHandler(BusinessException.class)
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	public ApiErros handlerBusinessException(BusinessException exception) {
+		return new ApiErros(exception);
 	}
 }
