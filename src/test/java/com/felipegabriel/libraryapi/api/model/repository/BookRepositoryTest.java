@@ -2,6 +2,8 @@ package com.felipegabriel.libraryapi.api.model.repository;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.util.Optional;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -53,6 +55,47 @@ public class BookRepositoryTest {
 		// verificação
 		assertThat(exists).isFalse();
 		
+	}
+	
+	@Test
+	@DisplayName("Deve obter um livro por id.")
+	public void findByIdTest() {
+		// cenario
+		Book book = createNewBook("123");
+		entityManager.persist(book);
+		
+		//execucao
+		Optional<Book> foundBook = repository.findById(book.getId());
+		
+		//verificacoes
+		assertThat(foundBook.isPresent()).isTrue();
+	}
+	
+	@Test
+	@DisplayName("Deve salvar um livro")
+	public void saveBookTest() {
+		
+		Book book = createNewBook("123");
+		
+		Book savedBook = repository.save(book);
+		
+		assertThat(savedBook.getId()).isNotNull();
+	}
+	
+	@Test
+	@DisplayName("Deve deletar um livro")
+	public void deleteBookTest() {
+		
+		Book book = createNewBook("123");
+		entityManager.persist(book);
+		Book foundBook = entityManager.find(Book.class, book.getId());
+		repository.delete(foundBook);
+		Book deletedBook = entityManager.find(Book.class, book.getId());
+		assertThat(deletedBook).isNull();
+	}
+	
+	private Book createNewBook(String isbn) {
+		return Book.builder().isbn(isbn).author("Felipe").title("As aventuras").build();
 	}
 	
 }
