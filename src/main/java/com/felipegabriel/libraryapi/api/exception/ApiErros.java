@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.validation.BindingResult;
+import org.springframework.web.server.ResponseStatusException;
 
 import lombok.Getter;
 
@@ -20,8 +21,10 @@ public class ApiErros {
 	
 	public ApiErros(BusinessException ex) {
 		this.erros = Arrays.asList(ex.getMessage());
-		
 	}
 	
+	public ApiErros(ResponseStatusException ex) {
+		this.erros = Arrays.asList(ex.getReason());
+	}
 	
 }

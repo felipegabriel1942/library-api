@@ -34,8 +34,8 @@ import com.felipegabriel.libraryapi.api.service.BookService;
 
 @ExtendWith(SpringExtension.class)
 @ActiveProfiles("test")
-@WebMvcTest
 @AutoConfigureMockMvc
+@WebMvcTest(controllers = BookController.class)
 public class BookControllerTest {
 	
 	static String BOOK_API = "/api/books";

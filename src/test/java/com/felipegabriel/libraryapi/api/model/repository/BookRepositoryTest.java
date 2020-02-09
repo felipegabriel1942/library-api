@@ -37,7 +37,6 @@ public class BookRepositoryTest {
 		// execução
 		boolean exists = repository.existsByIsbn(isbn);
 		
-		
 		// verificação
 		assertThat(exists).isTrue();
 		
@@ -94,7 +93,7 @@ public class BookRepositoryTest {
 		assertThat(deletedBook).isNull();
 	}
 	
-	private Book createNewBook(String isbn) {
+	public static Book createNewBook(String isbn) {
 		return Book.builder().isbn(isbn).author("Felipe").title("As aventuras").build();
 	}
 	
