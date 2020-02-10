@@ -2,11 +2,14 @@ package com.felipegabriel.libraryapi.api.service.impl;
 
 import java.util.Optional;
 
+import org.springframework.stereotype.Service;
+
 import com.felipegabriel.libraryapi.api.exception.BusinessException;
 import com.felipegabriel.libraryapi.api.model.entity.Loan;
 import com.felipegabriel.libraryapi.api.model.repository.LoanRepository;
 import com.felipegabriel.libraryapi.api.service.LoanService;
 
+@Service
 public class LoanServiceImpl implements LoanService{
 
 	private LoanRepository repository;
