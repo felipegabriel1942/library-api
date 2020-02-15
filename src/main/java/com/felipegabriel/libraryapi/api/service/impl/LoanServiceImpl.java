@@ -2,8 +2,11 @@ package com.felipegabriel.libraryapi.api.service.impl;
 
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.felipegabriel.libraryapi.api.dto.LoanFilterDTO;
 import com.felipegabriel.libraryapi.api.exception.BusinessException;
 import com.felipegabriel.libraryapi.api.model.entity.Loan;
 import com.felipegabriel.libraryapi.api.model.repository.LoanRepository;
@@ -28,12 +31,18 @@ public class LoanServiceImpl implements LoanService{
 
 	@Override
 	public Optional<Loan> getById(Long id) {
-		return null;
+		return repository.findById(id);
 	}
 
 	@Override
 	public Loan update(Loan loan) {
-		return null;
+		return repository.save(loan);
+	}
+
+	@Override
+	public Page<Loan> find(LoanFilterDTO filterDTO, Pageable page) {
+		return repository.findByBookIsbnOrCostumer(filterDTO.getIsbn(),
+				filterDTO.getCostumer(), page);
 	}
 	
 }

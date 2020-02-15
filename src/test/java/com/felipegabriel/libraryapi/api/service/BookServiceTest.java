@@ -176,6 +176,7 @@ public class BookServiceTest {
 		Mockito.verify(repository, Mockito.never()).save(book);
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Test
 	@DisplayName("Deve filtrar livros pelas propriedades")
 	public void findBookTest() {
