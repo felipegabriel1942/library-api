@@ -1,5 +1,7 @@
 package com.felipegabriel.libraryapi.api.service.impl;
 
+import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;
@@ -8,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.felipegabriel.libraryapi.api.dto.LoanFilterDTO;
 import com.felipegabriel.libraryapi.api.exception.BusinessException;
+import com.felipegabriel.libraryapi.api.model.entity.Book;
 import com.felipegabriel.libraryapi.api.model.entity.Loan;
 import com.felipegabriel.libraryapi.api.model.repository.LoanRepository;
 import com.felipegabriel.libraryapi.api.service.LoanService;
@@ -43,6 +46,18 @@ public class LoanServiceImpl implements LoanService{
 	public Page<Loan> find(LoanFilterDTO filterDTO, Pageable page) {
 		return repository.findByBookIsbnOrCostumer(filterDTO.getIsbn(),
 				filterDTO.getCostumer(), page);
+	}
+
+	@Override
+	public Page<Loan> getLoansByBook(Book book, Pageable page) {
+		return repository.findByBook(book, page);
+	}
+
+	@Override
+	public List<Loan> getAllLateLoans() {
+		final Integer loanDays = 4;
+		LocalDate threeDaysAgo = LocalDate.now().minusDays(loanDays);
+		return repository.findByLoanDateLessThanAndNotReturned(threeDaysAgo);
 	}
 	
 }

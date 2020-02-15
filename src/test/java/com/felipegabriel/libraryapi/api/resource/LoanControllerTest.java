@@ -61,6 +61,7 @@ public class LoanControllerTest {
 		
 		LoanDTO dto = LoanDTO.builder()
 				.isbn("123")
+				.email("pinheirofelipeg@gmail.com")
 				.customer("Fulano").build();
 		String json = new ObjectMapper().writeValueAsString(dto);
 		
