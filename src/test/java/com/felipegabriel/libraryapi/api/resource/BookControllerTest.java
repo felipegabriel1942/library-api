@@ -31,6 +31,7 @@ import com.felipegabriel.libraryapi.api.dto.BookDTO;
 import com.felipegabriel.libraryapi.api.exception.BusinessException;
 import com.felipegabriel.libraryapi.api.model.entity.Book;
 import com.felipegabriel.libraryapi.api.service.BookService;
+import com.felipegabriel.libraryapi.api.service.LoanService;
 
 @ExtendWith(SpringExtension.class)
 @ActiveProfiles("test")
@@ -45,6 +46,9 @@ public class BookControllerTest {
 	
 	@MockBean
 	BookService service;
+	
+	@MockBean
+	LoanService loanService;
 	
 	@Test
 	@DisplayName("Deve criar um livro com sucesso.")
